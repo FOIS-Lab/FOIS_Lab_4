@@ -1,8 +1,9 @@
 package FOIS_LAB;
 import java.net.*;
 import java.io.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
-public class placeholder {
+public class Functions {
     public static String slasher(String hostname){
         if(hostname.startsWith("https://")){
             return hostname.replace("https://", "");
@@ -10,8 +11,11 @@ public class placeholder {
             return hostname.replace("http://","");
         }else return hostname;
     }
-    public static String schemeAdder(String hostname){
+    public static String schemeAdderS(String hostname){
         return "https://"+hostname;
+    }
+    public static String schemeAdder(String hostname){
+        return "http://"+hostname;
     }
     public static boolean ping(Inet4Address ipAddress) throws UnknownHostException, IOException {
         InetAddress addr = InetAddress.getByName(ipAddress.getHostName());
@@ -63,10 +67,7 @@ public class placeholder {
             return false;
         }
     }
-
-
-    public static void main(String [] args) throws IOException {
-
-    }
-
 }
+
+
+
