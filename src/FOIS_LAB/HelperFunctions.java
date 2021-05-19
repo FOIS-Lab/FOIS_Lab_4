@@ -3,7 +3,7 @@ import java.net.*;
 import java.io.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class Functions {
+public class HelperFunctions {
     public static String slasher(String hostname){
         if(hostname.startsWith("https://")){
             return hostname.replace("https://", "");

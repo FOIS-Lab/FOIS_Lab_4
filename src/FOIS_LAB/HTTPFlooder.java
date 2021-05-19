@@ -5,7 +5,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class Attacker {
+public class HTTPFlooder {
 
     public static void main(String... args) throws Exception {
         for (int i = 0; i < 8; i++) {
@@ -17,7 +17,7 @@ public class Attacker {
     public static class DdosThread extends Thread {
 
         private AtomicBoolean running = new AtomicBoolean(true);
-        private final String request = Functions.schemeAdder("localhost:5000/api/v1/isbn/1416949658");
+        private final String request = HelperFunctions.schemeAdder("localhost:5000/api/v1/isbn/1416949658");
         private final URL url;
 
 
@@ -33,14 +33,14 @@ public class Attacker {
         public void run() {
             while (running.get()) {
                 try {
-                    attack();
+                    requestFlood();
                 } catch (Exception e) {
 
                 }
             }
         }
 
-        public void attack() throws Exception {
+        public void requestFlood() throws Exception {
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setDoOutput(true);
             connection.setDoInput(true);
