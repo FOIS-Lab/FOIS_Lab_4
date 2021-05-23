@@ -122,9 +122,7 @@ public class FXMLDocumentController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }   
-    public String sendPingRequest(String ipAddress)
-            throws UnknownHostException, IOException
-    {
+    public String sendPingRequest(String ipAddress) throws UnknownHostException, IOException {
         InetAddress geek = InetAddress.getByName(ipAddress);
         System.out.println("Sending Ping Request to " + ipAddress);
         if (geek.isReachable(5000)){

@@ -52,8 +52,8 @@
                </font>
             </RadioButton>
             <Button fx:id="pingbtn" layoutX="267.0" layoutY="55.0" mnemonicParsing="false" onAction="#ping" style="-fx-background-color: lightgreen;" text="Ping" />
-            <Button fx:id="portchk" layoutX="267.0" layoutY="108.0" mnemonicParsing="false" onAction="#checkport" style="-fx-background-color: lightgreen;" text="Check Port" />
-            <Button fx:id="intchk" layoutX="89.0" layoutY="213.0" mnemonicParsing="false" onAction="#checkinternet" style="-fx-background-color: lightgreen;" text="Check Internet Connection" />
+            <Button fx:id="portchk" layoutX="267.0" layoutY="108.0" mnemonicParsing="false" onAction="#checkPort" style="-fx-background-color: lightgreen;" text="Check Port" />
+            <Button fx:id="intchk" layoutX="89.0" layoutY="213.0" mnemonicParsing="false" onAction="#checkInternet" style="-fx-background-color: lightgreen;" text="Check Internet Connection" />
             <Button fx:id="attack" layoutX="118.0" layoutY="335.0" mnemonicParsing="false" onAction="#startattack" style="-fx-background-color: lightgreen;" text="Start Attack">
                <font>
                   <Font size="15.0" />

