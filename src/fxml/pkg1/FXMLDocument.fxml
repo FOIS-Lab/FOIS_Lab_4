@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="877.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.pkg1.FXMLDocumentController">
+   <left>
+      <AnchorPane prefHeight="400.0" prefWidth="221.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="400.0" fitWidth="258.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/hkr.jpg" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </left>
+   <right>
+      <AnchorPane prefHeight="400.0" prefWidth="586.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="400.0" fitWidth="665.0" layoutX="-15.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/bg3.jpg" />
+               </image>
+            </ImageView>
+            <Label contentDisplay="RIGHT" layoutX="-2.0" layoutY="54.0" text="Hostname/IP" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <graphic>
+                  <TextField fx:id="hostname" opacity="0.72" />
+               </graphic>
+            </Label>
+            <Label contentDisplay="RIGHT" layoutX="-2.0" layoutY="107.0" text="Port" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <graphic>
+                  <TextField fx:id="port" opacity="0.72" />
+               </graphic>
+            </Label>
+            <RadioButton fx:id="synflood" layoutY="200.0" mnemonicParsing="false" selected="true" text="SYN Flood" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <toggleGroup>
+                  <ToggleGroup fx:id="tggrp1" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="httpflood" layoutY="232.0" mnemonicParsing="false" text="HTTP Flood" textFill="WHITE" toggleGroup="$tggrp1">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </RadioButton>
+            <Button fx:id="pingbtn" layoutX="284.0" layoutY="56.0" mnemonicParsing="false" onAction="#ping" style="-fx-background-color: lightgreen;" text="Ping" />
+            <Button fx:id="portchk" layoutX="226.0" layoutY="109.0" mnemonicParsing="false" onAction="#checkport" style="-fx-background-color: lightgreen;" text="Check Port" />
+            <Button fx:id="intchk" layoutX="98.0" layoutY="157.0" mnemonicParsing="false" onAction="#checkinternet" style="-fx-background-color: lightgreen;" text="Check Internet Connection" />
+            <Button fx:id="attack" layoutX="128.0" layoutY="266.0" mnemonicParsing="false" onAction="#startattack" style="-fx-background-color: lightgreen;" text="Start Attack">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+            <TextArea fx:id="output" editable="false" layoutX="360.0" layoutY="18.0" opacity="0.72" prefHeight="363.0" prefWidth="250.0" style="-fx-text-fill: green;" />
+         </children>
+      </AnchorPane>
+   </right>
+</BorderPane>

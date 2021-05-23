@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="954.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.pkg1.MainAppFXMLController">
+   <left>
+      <AnchorPane prefHeight="400.0" prefWidth="221.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="400.0" fitWidth="258.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/hkr.jpg" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </left>
+   <right>
+      <AnchorPane prefHeight="400.0" prefWidth="674.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="444.0" fitWidth="711.0" layoutX="-31.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/bg4.jpg" />
+               </image>
+            </ImageView>
+            <Label contentDisplay="RIGHT" layoutX="-2.0" layoutY="54.0" text="Hostname/IP" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <graphic>
+                  <TextField fx:id="hostname" prefHeight="28.0" prefWidth="145.0" style="-fx-background-color: #404040; -fx-text-fill: lightgreen;" />
+               </graphic>
+            </Label>
+            <Label contentDisplay="RIGHT" layoutX="-2.0" layoutY="107.0" text="Port" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <RadioButton fx:id="httpflood" layoutX="110.0" layoutY="260.0" mnemonicParsing="false" text="HTTP Flood" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <toggleGroup>
+                  <ToggleGroup fx:id="tggrp1" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="synflood" layoutX="115.0" layoutY="295.0" mnemonicParsing="false" selected="true" text="SYN Flood" textFill="WHITE" toggleGroup="$tggrp1">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </RadioButton>
+            <Button fx:id="pingbtn" layoutX="267.0" layoutY="55.0" mnemonicParsing="false" onAction="#ping" style="-fx-background-color: lightgreen;" text="Ping" />
+            <Button fx:id="portchk" layoutX="267.0" layoutY="108.0" mnemonicParsing="false" onAction="#checkport" style="-fx-background-color: lightgreen;" text="Check Port" />
+            <Button fx:id="intchk" layoutX="89.0" layoutY="213.0" mnemonicParsing="false" onAction="#checkinternet" style="-fx-background-color: lightgreen;" text="Check Internet Connection" />
+            <Button fx:id="attack" layoutX="118.0" layoutY="335.0" mnemonicParsing="false" onAction="#startattack" style="-fx-background-color: lightgreen;" text="Start Attack">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+            <TextArea fx:id="output" editable="false" layoutX="360.0" layoutY="18.0" prefHeight="335.0" prefWidth="304.0" style="-fx-background-color: #404040;" />
+            <ProgressBar fx:id="progress" layoutX="412.0" layoutY="367.0" prefWidth="200.0" progress="0.0" style="-fx-accent: lightgreen;" />
+            <Label fx:id="percent" layoutX="619.0" layoutY="368.0" textFill="WHITE" />
+            <Label contentDisplay="RIGHT" layoutY="160.0" text="Threads" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="threads" layoutX="93.0" layoutY="160.0" prefHeight="26.0" prefWidth="146.0" style="-fx-background-color: #404040; -fx-text-fill: lightgreen;" />
+            <TextField fx:id="port" layoutX="93.0" layoutY="106.0" prefHeight="26.0" prefWidth="146.0" style="-fx-background-color: #404040; -fx-text-fill: lightgreen;" />
+         </children>
+      </AnchorPane>
+   </right>
+</BorderPane>

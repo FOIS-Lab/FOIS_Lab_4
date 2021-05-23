@@ -1,7 +1,8 @@
 package FOIS_LAB;
 import java.net.*;
 import java.io.*;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class HelperFunctions {
     public static String slasher(String hostname){
@@ -17,6 +18,11 @@ public class HelperFunctions {
     public static String schemeAdder(String hostname){
         return "http://"+hostname;
     }
+    public static String schemeRemover(String hostname){
+        if(hostname.startsWith("http://")) return hostname.replace("http://", "");
+        else if(hostname.startsWith("https://")) return hostname.replace("https://", "");
+        else return hostname;
+    }
     public static boolean ping(Inet4Address ipAddress) throws UnknownHostException, IOException {
         InetAddress addr = InetAddress.getByName(ipAddress.getHostName());
         System.out.println("Sending Ping Request to " + ipAddress);
@@ -31,7 +37,6 @@ public class HelperFunctions {
     }
     public static Inet4Address resolver(String hostname){
         try{
-
             if (hostname.startsWith("https://")) {
                 System.out.println("Slashed");
             } else {
@@ -66,6 +71,11 @@ public class HelperFunctions {
         {
             return false;
         }
+    }
+    public static boolean isValidIP(String ipAddr){
+        Pattern ptn = Pattern.compile("^(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})$");
+        Matcher mtch = ptn.matcher(ipAddr);
+        return mtch.find();
     }
 }
 
