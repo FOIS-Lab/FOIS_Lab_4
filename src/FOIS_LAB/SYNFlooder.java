@@ -39,7 +39,7 @@ public class SYNFlooder extends Thread {
     }
     public static void main (String[] args){
         for (int i = 0; i < 500; i++) {
-            SYNFlooder syn = new SYNFlooder("http://127.0.0.1", 6000);
+            SYNFlooder syn = new SYNFlooder("127.0.0.1", 6000);
             syn.start();
         }
     }

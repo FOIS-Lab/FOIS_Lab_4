@@ -1,6 +1,7 @@
 package FOIS_LAB;
 import java.net.*;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -35,18 +36,13 @@ public class HelperFunctions {
             return false;
         }
     }
-    public static Inet4Address resolver(String hostname){
+    public static String resolver(String hostname){
+        if(HelperFunctions.isValidIP(hostname)) return hostname;
         try{
-            if (hostname.startsWith("https://")) {
-                System.out.println("Slashed");
-            } else {
-                System.out.println("No need to slash");
-            }
-
-            return (Inet4Address) Inet4Address.getByName(hostname);
+            return Inet4Address.getByName(hostname).getHostAddress();
         }
         catch (UnknownHostException e){
-            return null;
+            return hostname;
         }
     }
     public static boolean pingHost(String host, int port, int timeout) {
@@ -77,6 +73,9 @@ public class HelperFunctions {
         Matcher mtch = ptn.matcher(ipAddr);
         return mtch.find();
     }
+
+
+
 }
 
 
